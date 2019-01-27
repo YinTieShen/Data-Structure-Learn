@@ -1,50 +1,47 @@
-package _160300531Chapter3;
-/*
- * 1.设计循环队列，标志位解决假溢出
- * 2.类包括构造函数，入队列，出队列，非空
- * 3.测试程序
- */
+package Chapter3;
 
 public class SeqQueue {
-	static final int defdaultSize = 10;
-	public int front;
-	public int rear;
-	int flag;
-	Object[] data;
+	static final int defaultsize = 10;
+	int front;
+	int rear;
+	int count;
 	int maxSize;
+	Object[] data;
 	
-	public SeqQueue(){
-		initiate(defdaultSize);
-	}
 	public SeqQueue(int sz){
 		initiate(sz);
 	}
 	private void initiate(int sz){
-		front = rear =0;
-		flag = 0;
 		maxSize = sz;
+		front = rear = 0;
+		count = 0;
 		data = new Object[sz];
 	}
-	
 	public void append(Object obj)throws Exception{
-		if(rear == front && flag == 1){
+		if(count >0 && front == rear){
 			throw new Exception("队列已满");
 		}
 		data[rear] = obj;
-		rear = (rear+1)%maxSize;
-		//rear++;
-		flag = 1;
+		rear = (rear+1)% maxSize;
+		count++;
 	}
 	public Object delete()throws Exception{
-		if(rear == front && flag == 0){
-			throw new Exception("队列已空");
+		if(count == 0){
+			throw new Exception("队列为空");
+			
 		}
 		Object temp = data[front];
 		front = (front+1)% maxSize;
-		flag = 0;
+		count--;
 		return temp;
 	}
-	public boolean isEmpty(){
-		return (rear == front && flag == 0);
+	public Object getFront()throws Exception{
+		if(count == 0){
+			throw new Exception("队列已空");
+		}
+		return data[front];
+	}
+	public boolean notEmpty(){
+		return count != 0;
 	}
 }

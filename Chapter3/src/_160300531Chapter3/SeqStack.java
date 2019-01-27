@@ -1,4 +1,4 @@
-package _160300531Chapter3;
+package Chapter3;
 
 public class SeqStack {
 	final int defaultSize = 10;
